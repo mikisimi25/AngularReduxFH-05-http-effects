@@ -14,8 +14,15 @@ export class UsuarioService {
     private http: HttpClient
   ) { }
 
-  public getUsers(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${this._url}/users?per_page=6`)
+  public getUsers() {
+    return this.http.get(`${this._url}/users?per_page=6&delay=3`)
+      .pipe(
+        map( (resp: any) => resp['data'] )
+      )
+  }
+
+  public getUserById( id: string ) {
+    return this.http.get(`${this._url}/users/${ id }`)
       .pipe(
         map( (resp: any) => resp['data'] )
       )
